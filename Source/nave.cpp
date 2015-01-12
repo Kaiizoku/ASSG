@@ -2,26 +2,17 @@
 
 Nave::Nave(SDL_Renderer* renderer, SDL_Window* pantalla, const char* path) :
 		Entidad(renderer,path){
-	int x,y;
-
-	SDL_GetWindowSize(pantalla, &pantalla_ancho, &pantalla_alto);
-	x=pantalla_ancho/2;
-	y=pantalla_alto-this->getH();
-	this->setX(x);
-	this->setY(y);
-
+	this->setX(1024/2);
+	this->setY(768-this->getH());
 
 	vida = 5;
 	vel_x=0;
-
 
 	for(int i=0;i<=5;i++)
 		bala[i] = new Bala(renderer,getX(),getY(),"Others/bala.png");
 }
 
-Nave::~Nave(){
-
-}
+Nave::~Nave(){}
 
 void Nave::renderizar(){
 	for(int i=0;i<=5;i++){
@@ -33,25 +24,11 @@ void Nave::renderizar(){
 
 void Nave::moverIzquierda(){
 	vel_x=-10;
-	/*if(rectangulo.x>13){
-		vel_x = -10;
-	}
-	else{
-		vel_x = 0;
-	}*/
 }
 
 void Nave::moverDerecha(){
 	vel_x=10;
-/*	if(rectangulo.x<pantalla_ancho-13-rectangulo.w){
-		vel_x = 10;
-	}
-	else{
-		vel_x = 0;
-	}*/
 }
-
-
 
 void Nave::disparar(int nrobala){
 	if(nrobala>0){
@@ -61,6 +38,7 @@ void Nave::disparar(int nrobala){
 			this->disparar(nrobala-1);
 	}
 }
+
 void Nave::detener(){
 	vel_x = 0;
 }
@@ -68,10 +46,12 @@ void Nave::detener(){
 void Nave::actualizar(){
 	setX(getX()+vel_x);
 
-	if (getX()<0)
-		setX(pantalla_ancho-13);
-	else if(getX()>pantalla_ancho)
+	if(getX()<0){
+		setX(1024-getW());
+	}
+	else if(getX()>1024-getW()){
 		setX(0);
+	}
 
 	for(int i=0; i<=5;i++){
 			if(!bala[i]->esDisparada()){
@@ -80,4 +60,3 @@ void Nave::actualizar(){
 			bala[i]->actualizar();
 		}
 }
-

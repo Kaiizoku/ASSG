@@ -9,10 +9,8 @@
 
 Enemigo::Enemigo(SDL_Renderer* renderer, SDL_Window* pantalla,const char* path) :
 			Entidad(renderer,path){
-	SDL_GetWindowSize(pantalla,&pantalla_ancho,NULL);
-
 	setY(0);
-	setX(rand()%pantalla_ancho+1);
+	setX(rand()%1024+1);
 }
 
 Enemigo::~Enemigo(){
@@ -31,17 +29,23 @@ void Enemigo::mover(){
 
 	direccion = (rand()%100+1);
 
-	if (direccion>=50) vel_x=2;
-	else vel_x=-2;
+	if (direccion>=50&&getX()<=1024-getW()) vel_x=2;
+	else if (direccion<50&&getX()>getW()) vel_x=-2;
+	else vel_x=0;
+
 
 	setX(getX()+vel_x);
 }
 
 void Enemigo::actualizar(){
 	this->mover();
+	if(getY()>=768){
+		setY(0);
+		setX(rand()%1024+1);
+	}
 }
 
 void Enemigo::colision(){
 	setY(0);
-	setX(rand()%pantalla_ancho+1);
+	setX(rand()%1024+1);
 }

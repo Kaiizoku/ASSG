@@ -43,7 +43,7 @@ void Bala::colision(Enemigo* e){
 	bool coincideX, coincideY=false;
 
 	coincideX=this->getX()+this->getW()>=e->getX()&&this->getX()<=e->getX()+e->getW();
-	coincideY=this->getY()<=e->getY()+e->getH()&&this->getY()+this->getH()>=getY();
+	coincideY=this->getY()<=e->getY()+e->getH()&&this->getY()+this->getH()>=e->getY();
 
 	colision=coincideX&&coincideY;
 

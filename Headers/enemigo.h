@@ -21,7 +21,6 @@ public:
 	void colision();
 private:
 	void mover();
-	int pantalla_ancho;
 };
 
 

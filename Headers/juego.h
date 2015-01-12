@@ -2,6 +2,7 @@
 #define JUEGO_H_
 
 #include <SDL2/SDL.h>
+#include <vector>
 
 #include "espacio.h"
 #include "nave.h"
@@ -21,7 +22,8 @@ private:
 
 	Espacio* espacio;
 	Nave* nave;
-	Enemigo* enemigo;
+	Enemigo *enemigo[5];
+	//std::vector<Enemigo> enemigos;
 
 	void renderizar();
 	void eventos();

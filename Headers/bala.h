@@ -17,7 +17,6 @@ public:
 	void mover(int x, int y);
 
 	bool esDisparada();
-
 private:
 	bool disparo;
 };

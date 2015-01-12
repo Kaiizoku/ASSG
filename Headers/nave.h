@@ -21,8 +21,6 @@ public:
 
 	Bala* bala[5];
 private:
-	int pantalla_ancho, pantalla_alto;
-
 	int vida,pos_x,vel_x;
 
 };

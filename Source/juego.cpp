@@ -4,18 +4,18 @@ Juego::Juego(const char* titulo, int x, int y){
 	pantalla=SDL_CreateWindow(titulo,SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,x,y,SDL_WINDOW_SHOWN);
 	render=SDL_CreateRenderer(pantalla,-1,SDL_RENDERER_PRESENTVSYNC);
 	running=false;
-
 	puntos=0;
-
 	espacio = new Espacio(render);
 	nave = new Nave(render,pantalla,"Others/nave.png");
-	enemigo = new Enemigo(render,pantalla,"Others/enemigo.png");
+	for(int i=0;i<5;i++) enemigo[i]=new Enemigo(render,pantalla,"Others/enemigo.png");
 }
 
 Juego::~Juego(){
+	//enemigo=NULL;
 	delete espacio;
 	delete nave;
-	delete enemigo;
+//	enemigos.clear();
+	for(int i=0;i<5;i++) delete enemigo[i];
 	SDL_DestroyRenderer(render);
 	SDL_DestroyWindow(pantalla);
 }
@@ -34,8 +34,14 @@ void Juego::renderizar(){
 
 	espacio->renderizar();
 	nave->renderizar();
-	enemigo->renderizar();
-
+/*
+   for(unsigned int i=0;i<enemigos.size();i++){
+		enemigos[i].renderizar();
+	}
+*/
+	for(int i=0;i<5;i++){
+		enemigo[i]->renderizar();
+	}
 	SDL_RenderPresent(render);
 }
 
@@ -58,7 +64,6 @@ void Juego::eventos(){
 
 		if(sc==SDL_SCANCODE_SPACE){
 			nave->disparar(5);
-
 		}
 		break;
 	case SDL_KEYUP:
@@ -70,10 +75,19 @@ void Juego::eventos(){
 
 void Juego::actualizar(){
 	for(int i=0;i<=5;i++){
-		nave->bala[i]->colision(enemigo);
+		nave->bala[i]->colision(enemigo[0]);
+		nave->bala[i]->colision(enemigo[1]);
+		nave->bala[i]->colision(enemigo[2]);
+		nave->bala[i]->colision(enemigo[3]);
+		nave->bala[i]->colision(enemigo[4]);
 	}
 	nave->actualizar();
-	enemigo->actualizar();
+	for(int i=0;i<5;i++) enemigo[i]->actualizar();
+	/*
+	for(unsigned int i=0; i<enemigos.size();i++){
+		enemigos[i].actualizar();
+	}
+	*/
 }
 
 
