@@ -1,6 +1,3 @@
-Debug/
-Debug/*
-.settings/
-.settings/*
-.cproject
-.project
+juego
+main.o
+Source/*.o
